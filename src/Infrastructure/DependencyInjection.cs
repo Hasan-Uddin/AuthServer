@@ -1,10 +1,12 @@
 ﻿using System.Text;
 using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
+using Application.Abstractions.Email;
 using Infrastructure.Authentication;
 using Infrastructure.Authorization;
 using Infrastructure.Database;
 using Infrastructure.DomainEvents;
+using Infrastructure.Email;
 using Infrastructure.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +29,9 @@ public static class DependencyInjection
             .AddDatabase(configuration)
             .AddHealthChecks(configuration)
             .AddAuthenticationInternal(configuration)
-            .AddAuthorizationInternal();
+            .AddAuthorizationInternal()
+            .Configure<EmailSettings>(configuration.GetSection("EmailSettings"))
+            .AddScoped<IEmailService, EmailService>();
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
