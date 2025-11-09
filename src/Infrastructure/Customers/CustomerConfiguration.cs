@@ -8,7 +8,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.HasIndex(builder => builder.Email).IsUnique();
+        builder.HasIndex(c => c.Email).IsUnique();
 
         builder.HasKey(c => c.Id);
 
