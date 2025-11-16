@@ -16,6 +16,7 @@ public sealed class ApplicationDbContext(
     public DbSet<User> Users { get; set; }
 
     public DbSet<TodoItem> TodoItems { get; set; }
+    public DbSet<TodoItem> Applications { get; set; }
 
     public DbSet<Customer> Customers { get; set; }
 

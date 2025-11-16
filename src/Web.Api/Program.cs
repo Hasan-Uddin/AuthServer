@@ -35,6 +35,7 @@ app.MapHealthChecks("health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
+Console.WriteLine("Loaded connection string: " + builder.Configuration.GetConnectionString("Database"));
 
 app.UseRequestContextLogging();
 

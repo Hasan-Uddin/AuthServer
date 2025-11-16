@@ -5,6 +5,7 @@ using System.Numerics;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -13,9 +14,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251115160844_Create_Application")]
+    partial class Create_Application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,39 +28,49 @@ namespace Infrastructure.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Customers.Customer", b =>
+            modelBuilder.Entity("Domain.Application.Applications", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
+                    b.Property<BigInteger>("Id")
+                        .HasColumnType("numeric")
                         .HasColumnName("id");
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Api_base_url")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("address");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("api_base_url");
 
-                    b.Property<string>("Email")
+                    b.Property<int>("Application_status")
+                        .HasColumnType("integer")
+                        .HasColumnName("application_status");
+
+                    b.Property<string>("Client_id")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
-                        .HasColumnName("email");
+                        .HasColumnName("client_id");
+
+                    b.Property<string>("Client_secret")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("client_secret");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
                         .HasColumnName("name");
 
+                    b.Property<string>("Redirect_url")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("redirect_url");
+
                     b.HasKey("Id")
-                        .HasName("pk_customers");
+                        .HasName("pk_applications");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasDatabaseName("ix_customers_email");
-
-                    b.ToTable("customers", "public");
+                    b.ToTable("applications", "public");
                 });
 
             modelBuilder.Entity("Domain.Todos.TodoItem", b =>
