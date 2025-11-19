@@ -1,12 +1,12 @@
 ﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
-using Domain.Todos;
 using Domain.UserLoginHistories;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.UserLoginHistories.Delete;
+
 internal class DeleteUserloginHistoryCommandHandler(IApplicationDbContext context, IUserContext userContext)
     : ICommandHandler<DeleteUserloginHistoryCommand>
 {

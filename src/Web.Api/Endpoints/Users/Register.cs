@@ -1,7 +1,5 @@
-﻿using System.Numerics;
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
 using Application.Users.Register;
-using Microsoft.AspNetCore.Http.HttpResults;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
