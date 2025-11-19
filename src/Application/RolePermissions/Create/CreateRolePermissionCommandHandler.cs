@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.RolePermissions;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +24,7 @@ public sealed class CreateRolePermissionCommandHandler
 
         if (!roleExists)
         {
-            throw new InvalidOperationException("The specified role does not exist.");
+            return Result.Failure<Guid>("The specified role does not exist.");
         }
 
         // Check if permission exists
@@ -45,7 +42,7 @@ public sealed class CreateRolePermissionCommandHandler
 
         if (existingRolePermission != null)
         {
-            throw new InvalidOperationException("This role already has the specified permission.");
+            return Result.Failure<Guid>("This role already has the specified permission.");
         }
 
         var rolePermission = new RolePermission

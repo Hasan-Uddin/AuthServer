@@ -37,8 +37,8 @@ internal sealed class Update : IEndpoint
                 request.Name,
                 request.ClientId,
                 request.ClientSecret,
-                new Uri(request.RedirectUri), // ✅ convert string to Uri
-    new Uri(request.ApiBaseUrl),
+                new Uri(request.RedirectUri), 
+                new Uri(request.ApiBaseUrl),
                 status
             );
 

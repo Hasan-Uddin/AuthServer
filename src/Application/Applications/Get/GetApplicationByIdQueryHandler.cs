@@ -25,8 +25,8 @@ public sealed class GetApplicationByIdQueryHandler
                 a.Name,
                 a.ClientId,
                 a.ClientSecret,
-                 new Uri(a.RedirectUri),   // ✅ convert string → Uri
-            new Uri(a.ApiBaseUrl),      // Already string from database
+                new Uri(a.RedirectUri),
+                new Uri(a.ApiBaseUrl),
                 (int)a.Status,
                 a.Status.ToString()
             ))

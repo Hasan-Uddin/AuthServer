@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.RolePermissions;
 using Microsoft.EntityFrameworkCore;
@@ -23,15 +20,18 @@ public sealed class UpdateRolePermissionCommandHandler
     {
         // Check if the existing role permission exists
         RolePermission? existingRolePermission = await _context.RolePermissions
-            .FindAsync(new object[] { command.RoleId, command.PermissionId }, cancellationToken) ?? throw new InvalidOperationException("Role permission not found.");
-
+            .FindAsync(new object[] { command.RoleId, command.PermissionId }, cancellationToken);
+        if (existingRolePermission is null)
+        {
+            return Result.Failure<Guid>("Role permission not found.");
+        }
         // Check if new permission exists
         bool newPermissionExists = await _context.Permissions
             .AnyAsync(p => p.Id == command.NewPermissionId, cancellationToken);
 
         if (!newPermissionExists)
         {
-            throw new InvalidOperationException("The specified new permission does not exist.");
+            return Result.Failure<Guid>("The specified new permission does not exist.");
         }
 
         // Check if the new relationship already exists
@@ -40,7 +40,7 @@ public sealed class UpdateRolePermissionCommandHandler
 
         if (newRolePermissionExists != null)
         {
-            throw new InvalidOperationException("This role already has the specified new permission.");
+            return Result.Failure<Guid>("Role permission not found.");
         }
 
         // Remove old relationship and create new one

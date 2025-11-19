@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.DomainEvents;
 using Domain.Todos;
 using Domain.Customers;
-using Domain.Roles;
-using Domain.UserRoles;
 using SharedKernel;
 using Domain.Permissions;
 using Application.Abstractions.Data;
@@ -28,9 +26,7 @@ public sealed class ApplicationDbContext(
     //role based access control entities would go here
     public DbSet<Applicationapply> Applications { get; set; }
     public DbSet<Permission> Permissions { get; set; }
-    public DbSet<Role> Roles { get; set; }
     public DbSet<RolePermission> RolePermissions { get; set; }
-    public DbSet<UserRole> UserRoles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

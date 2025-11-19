@@ -28,8 +28,8 @@ public sealed class GetAllApplicationsQueryHandler
                 a.Name,
                 a.ClientId,
                 a.ClientSecret,
-                 new Uri(a.RedirectUri),   // ✅ convert string → Uri
-            new Uri(a.ApiBaseUrl),
+                new Uri(a.RedirectUri),   
+                new Uri(a.ApiBaseUrl),
                 (int)a.Status,
                 a.Status.ToString()
             ))
