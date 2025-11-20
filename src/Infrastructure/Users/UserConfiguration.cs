@@ -18,6 +18,6 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.PasswordHash).HasMaxLength(255).IsRequired();
 
-        builder.Property(u => u.IsEmailVerified).HasMaxLength(150);
+        builder.Property(u => u.IsEmailVerified).IsRequired();
     }
 }

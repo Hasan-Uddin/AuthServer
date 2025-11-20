@@ -1,7 +1,6 @@
 ﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
-using Domain.Todos;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
@@ -22,7 +21,7 @@ internal sealed class UpdateUserCommandHandler(
 
         if (userTuple is null)
         {
-            return Result.Failure(TodoItemErrors.NotFound(command.UserId));
+            return Result.Failure(UserErrors.NotFound(command.UserId));
         }
 
         if (command.Fullname is not null)
