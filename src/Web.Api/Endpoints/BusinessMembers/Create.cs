@@ -29,8 +29,12 @@ public class Create : IEndpoint
 
             SharedKernel.Result<Guid> result = await handler.Handle(command, cancellationToken);
 
-            return result.Match(Results.Ok, CustomResults.Problem);
+            return result.Match(
+            id => Results.Created($"/business-members/{id}", new { id }),
+            CustomResults.Problem
+ );
         })
+
         .WithTags(Tags.BusinessMembers)
         .RequireAuthorization();
     }

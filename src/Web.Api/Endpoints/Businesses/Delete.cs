@@ -16,7 +16,10 @@ public class Delete : IEndpoint
         {
             var command = new DeleteBusinessCommand(id);
             SharedKernel.Result<Guid> result = await handler.Handle(command, cancellationToken);
-            return result.Match(Results.Ok, CustomResults.Problem);
+            return result.Match(
+            _ => Results.NoContent(),
+            CustomResults.Problem
+            );
         })
         .WithTags(Tags.Businesses)
         .RequireAuthorization();
