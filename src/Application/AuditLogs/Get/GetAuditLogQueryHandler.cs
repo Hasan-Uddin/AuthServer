@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.AuditLogs.Get;
-internal sealed class GetAuditLogsQueryHandler(
+internal sealed class GetAuditLogQueryHandler(
     IApplicationDbContext context,
     IUserContext userContext)
-    : IQueryHandler<GetAuditLogsQuery, List<AuditLogResponse>>
+    : IQueryHandler<GetAuditLogQuery, List<AuditLogResponse>>
 {
     public async Task<Result<List<AuditLogResponse>>> Handle(
-        GetAuditLogsQuery query,
+        GetAuditLogQuery query,
         CancellationToken cancellationToken)
     {
         // Authorization check

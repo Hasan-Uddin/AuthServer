@@ -22,7 +22,7 @@ public static class GetMfaSettingByIdEndpoint
             return result.Match(Results.Ok, CustomResults.Problem);
 
         })
-        .WithTags("MfaSettings")
+        .WithTags("Tags.MfaSettings")
         .RequireAuthorization();
     }
 }

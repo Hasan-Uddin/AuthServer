@@ -25,16 +25,8 @@ public static class Update
                 ));
             }
 
-            if (string.IsNullOrWhiteSpace(request.Method))
-            {
-                return Results.BadRequest("Method is required.");
-            }
-
-            bool parsed = Enum.TryParse<MfaMethod>(request.Method, true, out MfaMethod method);
-            if (!parsed)
-            {
-                return Results.BadRequest("Invalid MFA method. Allowed: TOTP, SMS, EMAIL.");
-            }
+            
+            Enum.TryParse<MfaMethod>(request.Method, true, out MfaMethod method);
 
             mfa.UserId = request.UserId;
             mfa.SecretKey = request.SecretKey ?? mfa.SecretKey;
@@ -47,7 +39,7 @@ public static class Update
             return Results.Ok(Result.Success());
         })
         .WithName("UpdateMfaSetting")
-        .WithTags("MfaSettings")
+        .WithTags(Tags.MfaSettings) 
         .RequireAuthorization()
         .WithSummary("Update an MFA Setting")
         .WithDescription("Updates an MFA setting record.");

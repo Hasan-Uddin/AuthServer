@@ -15,6 +15,7 @@ public static class Update
             IApplicationDbContext context,
             CancellationToken cancellationToken) =>
         {
+            
             MfaLog? mfaLog = await context.MfaLogs
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
@@ -22,7 +23,7 @@ public static class Update
             {
                 return Results.NotFound(Result.Failure(MfaLogErrors.NotFound(id)));
             }
-
+           
             if (string.IsNullOrWhiteSpace(request.IpAddress))
             {
                 return Results.BadRequest("IpAddress is required.");
@@ -31,6 +32,11 @@ public static class Update
             if (string.IsNullOrWhiteSpace(request.Device))
             {
                 return Results.BadRequest("Device is required.");
+            }
+
+            if (!Enum.IsDefined(typeof(MfaLogStatus), request.Status))
+            {
+                return Results.BadRequest($"Invalid MFA status value: {request.Status}");
             }
 
             mfaLog.LoginTime = request.LoginTime;
@@ -44,7 +50,7 @@ public static class Update
             return Results.Ok(Result.Success());
         })
         .WithName("UpdateMfaLog")
-        .WithTags("MfaLogs")
+        .WithTags(Tags.MfaLogs)
         .RequireAuthorization()
         .WithSummary("Update an MFA Log entry")
         .WithDescription("Updates the LoginTime, IpAddress, Device and Status of an MFA Log");

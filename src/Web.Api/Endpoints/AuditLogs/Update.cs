@@ -15,7 +15,7 @@ public static class Update
             IApplicationDbContext context,
             CancellationToken cancellationToken) =>
         {
-            // Get entity
+            
             AuditLog? auditLog = await context.AuditLogs
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
@@ -24,19 +24,6 @@ public static class Update
                 return Results.NotFound(Result.Failure(AuditLogErrors.NotFound(id)));
             }
 
-            if (string.IsNullOrWhiteSpace(request.Action))
-            {
-                return Results.BadRequest("Action is required.");
-            }
-               
-
-            if (string.IsNullOrWhiteSpace(request.Description))
-            {
-                return Results.BadRequest("Description is required.");
-
-            }
-
-            // Update properties
             auditLog.Action = request.Action;
             auditLog.Description = request.Description;
             auditLog.UpdatedAt = DateTime.UtcNow;
@@ -45,15 +32,14 @@ public static class Update
 
             return Results.Ok(Result.Success());
         })
-           .WithName("UpdateAuditLog")
-           .WithTags("AuditLogs")               
-           .RequireAuthorization()             
-           .WithSummary("Update an Audit Log entry")
-           .WithDescription("Updates the Action and Description of an Audit Log");
+        .WithName("UpdateAuditLog")
+        .WithTags(Tags.AuditLogs) 
+        .RequireAuthorization()
+        .WithSummary("Update an Audit Log entry")
+        .WithDescription("Updates the Action and Description of an Audit Log");
     }
 }
 
-// Request model
 public sealed record UpdateAuditLogRequest(
     string Action,
     string Description

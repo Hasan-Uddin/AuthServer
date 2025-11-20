@@ -10,9 +10,9 @@ namespace Application.AuditLogs.Update;
 
 internal sealed class UpdateAuditLogCommandHandler(
     IApplicationDbContext context
-) : ICommandHandler<UpdateAuditLogsCommand>
+) : ICommandHandler<UpdateAuditLogCommand>
 {
-    public async Task<Result> Handle(UpdateAuditLogsCommand command, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateAuditLogCommand command, CancellationToken cancellationToken)
     {
         AuditLog? auditLog = await context.AuditLogs
             .SingleOrDefaultAsync(a => a.Id == command.AuditLogId, cancellationToken);

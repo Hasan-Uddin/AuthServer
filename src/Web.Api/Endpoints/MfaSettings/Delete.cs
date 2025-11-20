@@ -29,7 +29,7 @@ public static class Delete
 
             return Results.Ok(Result.Success());
         })
-        .WithTags("MfaSettings")
+        .WithTags("Tags.MfaSettings")
         .RequireAuthorization()
         .WithSummary("Delete an MFA Setting")
         .WithDescription("Deletes an MFA Setting by Id");

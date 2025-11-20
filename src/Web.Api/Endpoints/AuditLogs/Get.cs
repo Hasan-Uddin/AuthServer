@@ -12,11 +12,11 @@ public static class GetAuditLogsEndpoint
     public static void MapGetAuditLogsEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapGet("/AuditLogs", async (
-            IQueryHandler<GetAuditLogsQuery, List<AuditLogResponse>> handler,
+            IQueryHandler<GetAuditLogQuery, List<AuditLogResponse>> handler,
             CancellationToken cancellationToken) =>
         {
             // Explicit type
-            Result<List<AuditLogResponse>> result = await handler.Handle(new GetAuditLogsQuery(), cancellationToken);
+            Result<List<AuditLogResponse>> result = await handler.Handle(new GetAuditLogQuery(), cancellationToken);
             return result.Match(Results.Ok, CustomResults.Problem);
 
         })

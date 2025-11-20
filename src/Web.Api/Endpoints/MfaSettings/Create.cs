@@ -14,13 +14,13 @@ public class Create : IEndpoint
         public Guid UserId { get; set; }
         public string SecretKey { get; set; }
         public string BackupCodes { get; set; }
-        public string Method { get; set; } // Keep as string for JSON input
+        public string Method { get; set; } 
         public bool Enabled { get; set; }
     }
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("mfasettings", async (
+        app.MapPost("/MfaSettings", async (
             Request request,
             ICommandHandler<CreateMfaSettingCommand, Guid> handler,
             CancellationToken cancellationToken) =>
@@ -33,7 +33,7 @@ public class Create : IEndpoint
                 UserId = request.UserId,
                 SecretKey = request.SecretKey,
                 BackupCodes = request.BackupCodes,
-                Method = method, // enum value
+                Method = method, 
                 Enabled = request.Enabled
             };
 

@@ -21,7 +21,7 @@ public static class GetMfaSettingsEndpoint
             return result.Match(Results.Ok, CustomResults.Problem);
 
         })
-        .WithTags("MfaSettings")
+        .WithTags("Tags.MfaSettings")
         .RequireAuthorization();
     }
 }
