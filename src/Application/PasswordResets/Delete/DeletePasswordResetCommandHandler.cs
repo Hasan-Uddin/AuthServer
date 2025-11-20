@@ -22,7 +22,7 @@ internal sealed class DeletePasswordResetCommandHandler(IApplicationDbContext co
 
         context.PasswordReset.Remove(passwordReset);
 
-        passwordReset.Raise(new PasswordResetCreatedDomainEvent(passwordReset.Id));
+        passwordReset.Raise(new PasswordResetDeletedDomainEvent(passwordReset.Id));
 
         await context.SaveChangesAsync(cancellationToken);
 
