@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Abstractions.Authentication;
+﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Todos;
@@ -23,7 +18,7 @@ internal sealed class UpdateUserCommandHandler(
     {
 
         User? userTuple = await context.Users
-           .SingleOrDefaultAsync(t => t.Id == command.UserId, cancellationToken);
+            .SingleOrDefaultAsync(t => t.Id == command.UserId, cancellationToken);
 
         if (userTuple is null)
         {
