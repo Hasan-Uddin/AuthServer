@@ -2,7 +2,7 @@
 
 namespace Application.UserLoginHistories.Create;
 
-public class CreateUserLoginHistoryCommandValidator : AbstractValidator<CreateUserLoginHistoryCommand>
+internal sealed class CreateUserLoginHistoryCommandValidator : AbstractValidator<CreateUserLoginHistoryCommand>
 {
     public CreateUserLoginHistoryCommandValidator()
     {

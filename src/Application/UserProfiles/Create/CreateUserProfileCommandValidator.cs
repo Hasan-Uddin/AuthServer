@@ -2,12 +2,12 @@
 
 namespace Application.UserProfiles.Create;
 
-public class CreateUserProfileCommandValidator : AbstractValidator<CreateUserProfileCommand>
+internal sealed class CreateUserProfileCommandValidator : AbstractValidator<CreateUserProfileCommand>
 {
     public CreateUserProfileCommandValidator()
     {
         RuleFor(x => x.UserId)
-           .NotEmpty().WithMessage("UserId is required.");
+            .NotEmpty().WithMessage("UserId is required.");
 
         RuleFor(x => x.Address)
             .NotEmpty().WithMessage("Address is required.")

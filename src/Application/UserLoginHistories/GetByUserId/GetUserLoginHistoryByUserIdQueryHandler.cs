@@ -7,7 +7,7 @@ using SharedKernel;
 
 namespace Application.UserLoginHistories.GetByUserId;
 
-internal class GetUserLoginHistoryByUserIdQueryHandler(
+internal sealed class GetUserLoginHistoryByUserIdQueryHandler(
     IApplicationDbContext context, IUserContext userContext)
     : IQueryHandler<GetUserLoginHistoryByUserIdQuery, List<UserLoginHistoryResponse>>
 {

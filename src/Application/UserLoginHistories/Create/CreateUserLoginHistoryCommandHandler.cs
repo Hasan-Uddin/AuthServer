@@ -9,7 +9,7 @@ using Status = Domain.UserLoginHistories.Status;
 
 namespace Application.UserLoginHistories.Create;
 
-internal class CreateUserLoginHistoryCommandHandler(
+internal sealed class CreateUserLoginHistoryCommandHandler(
     IApplicationDbContext context,
     IDateTimeProvider dateTimeProvider,
     IUserContext userContext) : ICommandHandler<CreateUserLoginHistoryCommand, Guid>

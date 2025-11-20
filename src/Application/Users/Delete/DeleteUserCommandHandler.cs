@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.Users.Delete;
-internal class DeleteUserCommandHandler(
+
+internal sealed class DeleteUserCommandHandler(
     IApplicationDbContext context,
     IUserContext userContext)
     : ICommandHandler<DeleteUserCommand>

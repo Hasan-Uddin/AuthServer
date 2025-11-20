@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 
 namespace Application.Users.Delete;
-internal class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
+
+internal sealed class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
 {
     public DeleteUserCommandValidator()
     {
