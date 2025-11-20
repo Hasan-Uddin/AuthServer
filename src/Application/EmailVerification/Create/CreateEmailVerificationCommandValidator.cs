@@ -6,7 +6,7 @@ namespace Application.EmailVerification.Create;
 public class CreateEmailVerificationCommandValidator : AbstractValidator<CreateEmailVerificationCommand>
 {
     public CreateEmailVerificationCommandValidator()
-    {         RuleFor(x => x.User_Id)
+    {		RuleFor(x => x.User_Id)
             .NotEmpty().WithMessage("User ID is required.");
         RuleFor(x => x.Token)
             .NotEmpty().WithMessage("Token is required.")
