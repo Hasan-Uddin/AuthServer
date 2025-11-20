@@ -10,16 +10,16 @@ public class Update : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPut("/business-members/{id:guid}", async (
-            Guid id,
-            UpdateBusinessMemberCommand request,
-            ICommandHandler<UpdateBusinessMemberCommand, Guid> handler,
-            CancellationToken cancellationToken) =>
+        Guid id,
+        UpdateBusinessMemberCommand request,
+        ICommandHandler<UpdateBusinessMemberCommand, Guid> handler,
+        CancellationToken cancellationToken) =>
         {
             UpdateBusinessMemberCommand command = request with { Id = id };
             SharedKernel.Result<Guid> result = await handler.Handle(command, cancellationToken);
             return result.Match(Results.Ok, CustomResults.Problem);
         })
-        .WithTags(Tags.BusinessMembers)
-        .RequireAuthorization();
+       .WithTags(Tags.BusinessMembers)
+       .RequireAuthorization();
     }
 }
