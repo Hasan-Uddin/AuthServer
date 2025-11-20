@@ -12,7 +12,7 @@ public class MfaSettingConfiguration : IEntityTypeConfiguration<MfaSetting>
 
         builder.HasKey(m => m.Id);
 
-        // 🔗 Foreign key: user_id → users.id
+        // Foreign key: user_id → users.id
         builder.HasOne(m => m.User)
                .WithMany() 
                .HasForeignKey(m => m.UserId)

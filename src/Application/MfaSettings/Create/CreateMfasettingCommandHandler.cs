@@ -8,7 +8,8 @@ using SharedKernel;
 
 namespace Application.MfaSettings.Create;
 
-public class CreateMfaSettingCommandHandler : ICommandHandler<CreateMfaSettingCommand, Guid>
+public class CreateMfaSettingCommandHandler
+    : ICommandHandler<CreateMfaSettingCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
 
@@ -17,33 +18,22 @@ public class CreateMfaSettingCommandHandler : ICommandHandler<CreateMfaSettingCo
         _context = context;
     }
 
-    public async Task<Result<Guid>> Handle(CreateMfaSettingCommand command, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(
+        CreateMfaSettingCommand command,
+        CancellationToken cancellationToken)
     {
-        try
+        var mfaSetting = new MfaSetting
         {
+            UserId = command.UserId,
+            SecretKey = command.SecretKey,
+            BackupCodes = command.BackupCodes,
+            Method = command.Method, // already enum
+            Enabled = command.Enabled
+        };
 
-            var mfaSetting = new MfaSetting
-            {
-                UserId = command.UserId,
-                SecretKey = command.SecretKey,
-                BackupCodes = command.BackupCodes,
-                Method = command.Method, // already enum
-                Enabled = command.Enabled
-            };
+        await _context.MfaSettings.AddAsync(mfaSetting, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
-
-            await _context.MfaSettings.AddAsync(mfaSetting, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return Result<Guid>.Success(mfaSetting.Id);
-        }
-        catch (Exception ex)
-        {
-            return new Result<Guid>(
-              Guid.Empty,
-              false,
-              Error.Failure("MfaSettings.Create", $"Internal Server Error: {ex.Message}"));
-
-        }
+        return Result<Guid>.Success(mfaSetting.Id);
     }
 }
