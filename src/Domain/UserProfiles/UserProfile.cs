@@ -2,7 +2,8 @@
 using SharedKernel;
 
 namespace Domain.UserProfiles;
-public class UserProfile : Entity
+
+public sealed class UserProfile : Entity
 {
     public Guid UserId { get; set; } // Fk of User.Id
     public string Address { get; set; }

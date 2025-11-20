@@ -1,4 +1,6 @@
-﻿namespace Domain.UserLoginHistories;
+﻿
+namespace Domain.UserLoginHistories;
+
 public enum Status
 {
     Succeed = 1,

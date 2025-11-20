@@ -43,6 +43,7 @@ internal class CreateUserLoginHistoryCommandHandler(
             LogoutTime = command.LogoutTime,
             Status = Status.Succeed
         };
+
         await context.UserLoginHistory.AddAsync(history, cancellationToken);
 
         await context.SaveChangesAsync(cancellationToken);
