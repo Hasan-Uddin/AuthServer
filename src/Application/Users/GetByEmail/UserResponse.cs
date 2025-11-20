@@ -4,21 +4,21 @@ namespace Application.Users.GetByEmail;
 
 public sealed record UserResponse
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
 
-    public string Email { get; set; }
+    public string Email { get; init; }
 
-    public string FullName { get; set; }
+    public string FullName { get; init; }
 
-    public string? Phone { get; set; }
+    public string? Phone { get; init; }
 
-    public bool IsEmailVerified { get; set; }
+    public bool IsEmailVerified { get; init; }
 
-    public bool IsMFAEnabled { get; set; }
+    public bool IsMFAEnabled { get; init; }
 
-    public Status Status { get; set; }
+    public Status Status { get; init; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; init; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; init; }
 }
