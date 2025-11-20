@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Token;
 
-public class TokenConfiguration : IentityTypeConfiguration<Tokens>
+public class TokenConfiguration : IEntityTypeConfiguration<Tokens>
 {
     public void Configure(EntityTypeBuilder<Tokens> builder)
     {
         builder.HasKey(c => c.Id);
         builder.HasIndex(c => c.User_id);
         builder.Property(c => c.App_id);
-        builder.Property(c => c.Acess_token).IsRequired().HasColumnType("text");
+        builder.Property(c => c.Access_token).IsRequired().HasColumnType("text");
         builder.Property(c => c.Refresh_token).IsRequired().HasColumnType("text");
         builder.Property(c => c.Issued_at).IsRequired();
     }

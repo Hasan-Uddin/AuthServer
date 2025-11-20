@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Token;
 using Domain.PasswordResets;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Infrastructure.PasswordResets;
 
-public class PasswordResetConfiguration : IentityTypeConfiguration<PasswordReset>
+public class PasswordResetConfiguration : IEntityTypeConfiguration<PasswordReset>
 {
     public void Configure(EntityTypeBuilder<PasswordReset> builder)
     {

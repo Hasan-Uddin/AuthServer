@@ -31,7 +31,7 @@ internal sealed class GetTokensQueryHandler : IQueryHandler<GetTokensQuery, List
                 Id = tokens.Id,
                 User_id = tokens.User_id,
                 App_id = tokens.App_id,
-                Acess_token = tokens.Acess_token,
+                Access_token = tokens.Access_token,
                 Refresh_token = tokens.Refresh_token,
                 Issued_at = tokens.Issued_at
             }).ToListAsync(cancellationToken);

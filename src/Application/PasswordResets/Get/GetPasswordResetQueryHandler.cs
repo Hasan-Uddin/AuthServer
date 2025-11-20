@@ -20,12 +20,21 @@ internal sealed class GetPasswordResetQueryHandler(IApplicationDbContext context
 
         List<PasswordResetResponse> passwordResets = await context.PasswordReset
             .Where(passwordResets => passwordResets.Id == query.UserId)
+<<<<<<< Updated upstream
             .Select(passwordReset => new PasswordResetResponse
             {
                 User_Id = passwordReset.Id,
                 Token = passwordReset.Token,
                 Expires_at = passwordReset.Expires_at,
                 Used = passwordReset.Used
+=======
+            .Select(passwordResets => new PasswordResetResponse
+            {
+                User_Id = passwordResets.Id,
+                Token = passwordResets.Token,
+                Expires_at = passwordResets.Expires_at,
+                Used = passwordResets.Used
+>>>>>>> Stashed changes
             }).ToListAsync(cancellationToken);
 
         return passwordResets;

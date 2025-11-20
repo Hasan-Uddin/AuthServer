@@ -13,7 +13,7 @@ public sealed class Create : IEndpoint
     {
         public Guid User_id { get; set; }
         public Guid App_id { get; set; }
-        public string Acess_token { get; set; } //text
+        public string Access_token { get; set; } //text
         public string Refresh_token { get; set; } // text
         public DateTime Issued_at { get; set; }
     }
@@ -29,7 +29,7 @@ public sealed class Create : IEndpoint
             {
                 User_id = request.User_id,
                 App_id = request.App_id,
-                Acess_token = request.Acess_token,
+                Access_token = request.Access_token,
                 Refresh_token = request.Refresh_token,
                 Issued_at = request.Issued_at
             };

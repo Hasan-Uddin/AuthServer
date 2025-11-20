@@ -22,6 +22,8 @@ builder.Services
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 WebApplication app = builder.Build();
+
+app.UseDeveloperExceptionPage();
 app.UseDeveloperExceptionPage();
 
 app.MapEndpoints();
@@ -37,7 +39,7 @@ app.MapHealthChecks("health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-Console.WriteLine("Loaded connection string: " + builder.Configuration.GetConnectionString("Database"));
+//Console.WriteLine("Loaded connection string: " + builder.Configuration.GetConnectionString("Database"));
 
 app.UseRequestContextLogging();
 

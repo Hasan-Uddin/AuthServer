@@ -30,7 +30,7 @@ internal class GetTokenByIdQueryHandler : IQueryHandler<GetTokenByIdQuery, Token
                 Id = token.Id,
                 User_id = token.User_id,
                 App_id = token.App_id,
-                Acess_token = token.Acess_token,
+                Access_token = token.Access_token,
                 Refresh_token = token.Refresh_token,
                 Issued_at = token.Issued_at
             })

@@ -7,7 +7,7 @@ using SharedKernel;
 
 namespace Application.PasswordResets.GetById;
 
-internal sealed class GetPasswordResetyIdQueryHandler(IApplicationDbContext context, IUserContext userContext)
+internal sealed class GetPasswordResetByIdQueryHandler(IApplicationDbContext context, IUserContext userContext)
     : IQueryHandler<GetPasswordResetByIdQuery, PasswordResetResponse>
 {
     public async Task<Result<PasswordResetResponse>> Handle(GetPasswordResetByIdQuery query, CancellationToken cancellationToken)

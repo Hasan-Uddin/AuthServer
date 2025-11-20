@@ -27,7 +27,7 @@ public class CreateTokenCommandHandler : ICommandHandler<CreateTokenCommand, Gui
         {
             User_id = command.User_id,
             App_id = command.App_id,
-            Acess_token = command.Acess_token,
+            Access_token = command.Access_token,
             Refresh_token = command.Refresh_token,
             Issued_at = command.Issued_at == default
                 ? _dateTimeProvider.UtcNow

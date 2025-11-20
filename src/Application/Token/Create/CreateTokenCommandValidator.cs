@@ -12,12 +12,11 @@ public class CreateTokenCommandValidator : AbstractValidator<CreateTokenCommand>
     public CreateTokenCommandValidator()
     {
         RuleFor(x => x.User_id)
-            .NotEmpty().WithMessage("User ID is required.")
-            .WithMessage("User ID must be a positive number.");
+            .NotEmpty().WithMessage("User ID is required.");
         RuleFor(x => x.App_id)
             .NotEmpty().WithMessage("App ID is required.")
-            .WithMessage("App ID must be a positive number.");
-        RuleFor(x => x.Acess_token)
+            .NotEqual(Guid.Empty);
+        RuleFor(x => x.Access_token)
             .NotEmpty().WithMessage("Access token is required.")
             .MaximumLength(500).WithMessage("Access token cannot exceed 500 characters.");
         RuleFor(x => x.Refresh_token)

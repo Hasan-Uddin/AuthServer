@@ -17,7 +17,6 @@ public class ApplicationConfiguration : IEntityTypeConfiguration<Applications>
         builder.Property(c => c.Name).IsRequired().HasMaxLength(150);
         builder.Property(c => c.Client_id).IsRequired().HasMaxLength(100);
         builder.Property(c => c.Client_secret).IsRequired().HasMaxLength(255);
-        builder.Property(c => c.Client_secret).IsRequired().HasMaxLength(255);
         builder.Property(c => c.Api_base_url).IsRequired().HasMaxLength(255);
     }
 }
