@@ -47,6 +47,7 @@ internal sealed class Update : IEndpoint
                 Result result = await handler.Handle(command, cancellationToken);
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
+            .HasPermission(Permissions.UsersAccess)
             .WithTags(Tags.Users)
             .RequireAuthorization();
     }

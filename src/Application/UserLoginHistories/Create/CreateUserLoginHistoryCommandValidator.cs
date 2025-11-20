@@ -28,9 +28,6 @@ internal sealed class CreateUserLoginHistoryCommandValidator : AbstractValidator
 
         RuleFor(x => x.Device)
             .MaximumLength(50).WithMessage("Device cannot exceed 50 characters.");
-
-        RuleFor(x => x.Status)
-            .IsInEnum().WithMessage("Invalid login status.");
     }
 
     private bool BeValidIp(string ip)

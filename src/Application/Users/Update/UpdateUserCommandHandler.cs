@@ -9,12 +9,17 @@ namespace Application.Users.Update;
 
 internal sealed class UpdateUserCommandHandler(
     IApplicationDbContext context,
+    IUserContext userContext,
     IDateTimeProvider dateTimeProvider,
     IPasswordHasher passwordHasher
     ) : ICommandHandler<UpdateUserCommand>
 {
     public async Task<Result> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
     {
+        if (command.UserId != userContext.UserId)
+        {
+            return Result.Failure<UpdateUserCommand>(UserErrors.Unauthorized());
+        }
 
         User? userTuple = await context.Users
             .SingleOrDefaultAsync(t => t.Id == command.UserId, cancellationToken);

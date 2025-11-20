@@ -43,8 +43,6 @@ internal sealed class CreateUserProfileCommandHandler(
             existingProfile.PostalCode = command.PostalCode;
             existingProfile.ProfileImageUrl = command.ProfileImageUrl;
             existingProfile.DateOfBirth = command.DateOfBirth;
-
-            context.UserProfile.Update(existingProfile);
         }
         else
         {

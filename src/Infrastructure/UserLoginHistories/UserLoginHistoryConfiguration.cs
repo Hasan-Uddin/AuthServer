@@ -23,15 +23,15 @@ public sealed class UserLoginHistoryConfiguration : IEntityTypeConfiguration<Use
 
         builder.Property(u => u.IpAddress).IsRequired().HasMaxLength(50);
 
-        builder.Property(u => u.Country).HasMaxLength(100);
+        builder.Property(u => u.Country).IsRequired().HasMaxLength(100);
 
-        builder.Property(u => u.City).HasMaxLength(100);
+        builder.Property(u => u.City).IsRequired().HasMaxLength(100);
 
-        builder.Property(u => u.Browser).HasMaxLength(100);
+        builder.Property(u => u.Browser).IsRequired().HasMaxLength(100);
 
-        builder.Property(u => u.OS).HasMaxLength(100);
+        builder.Property(u => u.OS).IsRequired().HasMaxLength(100);
 
-        builder.Property(u => u.Device).HasMaxLength(50);
+        builder.Property(u => u.Device).IsRequired().HasMaxLength(50);
 
         builder.Property(u => u.LogInTime).IsRequired();
 
