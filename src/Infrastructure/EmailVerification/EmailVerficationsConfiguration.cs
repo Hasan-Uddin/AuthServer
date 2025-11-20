@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.EmailVerification;
 
-namespace Infrastructure.EmailVerfication;
+namespace Infrastructure.EmailVerification;
 
 public class EmailVerficationsConfiguration : IEntityTypeConfiguration<EmailVerifications>
 {

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
-using Domain.Application;
 using Application.Application.Create;
-using SharedKernel;
+using Domain.Application;
+using Domain.PasswordResets;
 using Domain.Token;
+using SharedKernel;
 
 namespace Application.Token.Create;
 
@@ -34,6 +35,7 @@ public class CreateTokenCommandHandler : ICommandHandler<CreateTokenCommand, Gui
                 : command.Issued_at
         };
 
+        token.Raise(new TokenCreatedDomainEvent(token.Id));
         await _context.Tokens.AddAsync(token, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 

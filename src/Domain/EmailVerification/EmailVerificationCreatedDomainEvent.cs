@@ -2,4 +2,4 @@
 
 namespace Domain.EmailVerification;
 
-public sealed record EmailVerificationCompletedDomainEvent(Guid Id) : IDomainEvent;
+public sealed record EmailVerificationCreatedDomainEvent(Guid TodoItemId) : IDomainEvent;

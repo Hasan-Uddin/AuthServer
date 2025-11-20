@@ -15,9 +15,9 @@ public sealed class GetById : IEndpoint
             IQueryHandler<GetPasswordResetByIdQuery, PasswordResetResponse> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new GetPasswordResetByIdQuery(id);
+            var query = new GetPasswordResetByIdQuery(id);
 
-            Result<PasswordResetResponse> result = await handler.Handle(command, cancellationToken);
+            Result<PasswordResetResponse> result = await handler.Handle(query, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })

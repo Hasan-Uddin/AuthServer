@@ -15,9 +15,9 @@ public sealed class GetById : IEndpoint
             IQueryHandler<GetTokenByIdQuery, TokenResponse> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new GetTokenByIdQuery(id);
+            var query = new GetTokenByIdQuery(id);
 
-            Result<TokenResponse> result = await handler.Handle(command, cancellationToken);
+            Result<TokenResponse> result = await handler.Handle(query, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })

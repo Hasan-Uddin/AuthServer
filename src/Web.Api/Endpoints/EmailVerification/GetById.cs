@@ -15,9 +15,9 @@ public sealed class GetById : IEndpoint
             IQueryHandler<GetEmailVerificationByIdQuery, EmailVerificationResponse> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new GetEmailVerificationByIdQuery(id);
+            var query = new GetEmailVerificationByIdQuery(id);
 
-            Result<EmailVerificationResponse> result = await handler.Handle(command, cancellationToken);
+            Result<EmailVerificationResponse> result = await handler.Handle(query, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })

@@ -18,7 +18,7 @@ internal sealed class UpdateTokenCommandHandler(
 
         if (token is null)
         {
-            return Result.Failure(TodoItemErrors.NotFound(command.Id));
+            return Result.Failure(TokenErrors.NotFound(command.Id));
         }
 
         token.App_id = command.App_id;

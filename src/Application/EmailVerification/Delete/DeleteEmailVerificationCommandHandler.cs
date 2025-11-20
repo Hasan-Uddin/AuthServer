@@ -22,7 +22,7 @@ internal sealed class DeleteEmailVerificationCommandHandler(IApplicationDbContex
 
         context.EmailVerifications.Remove(emailVerifications);
 
-        emailVerifications.Raise(new EmailVerificationCompletedDomainEvent(emailVerifications.Id));
+        emailVerifications.Raise(new EmailVerificationDeletedDomainEvent(emailVerifications.Id));
 
         await context.SaveChangesAsync(cancellationToken);
 

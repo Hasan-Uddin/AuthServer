@@ -24,7 +24,6 @@ builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 WebApplication app = builder.Build();
 
 app.UseDeveloperExceptionPage();
-app.UseDeveloperExceptionPage();
 
 app.MapEndpoints();
 

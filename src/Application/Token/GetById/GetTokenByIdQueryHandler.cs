@@ -7,6 +7,7 @@ using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Todos;
+using Domain.Token;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
@@ -38,7 +39,7 @@ internal class GetTokenByIdQueryHandler : IQueryHandler<GetTokenByIdQuery, Token
 
         if (token is null)
         {
-            return Result.Failure<TokenResponse>(TodoItemErrors.NotFound(query.Id));
+            return Result.Failure<TokenResponse>(TokenErrors.NotFound(query.Id));
         }
 
         return token;

@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace Domain.Enums;
 public enum Status
 {
-    active = 1,
-    inactive = 0
+    Active = 1,
+    Inactive = 0
 }
