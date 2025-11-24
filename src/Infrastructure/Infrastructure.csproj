@@ -1,21 +1,19 @@
-﻿
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<ItemGroup>
 		<None Update="Database\Migrations\**\*.cs">
 			<ExcludeFromStyleCop>true</ExcludeFromStyleCop>
 		</None>
 	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
-    <PackageReference Include="EFCore.NamingConventions" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
-    <PackageReference Include="MailKit" />
-    <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+		<PackageReference Include="EFCore.NamingConventions" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
+		<PackageReference Include="MailKit" />
+		<PackageReference Include="Newtonsoft.Json" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Application\Application.csproj" />
 	</ItemGroup>
@@ -25,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Database\Migrations\" />
+		<Folder Include="Database\Migrations\" />
 	</ItemGroup>
 
 </Project>
