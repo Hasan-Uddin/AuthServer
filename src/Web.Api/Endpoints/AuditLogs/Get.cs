@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
 using Application.AuditLogs.Get;
 using SharedKernel;
 using Web.Api.Extensions;
@@ -7,18 +6,20 @@ using Web.Api.Infrastructure;
 
 namespace Web.Api.Endpoints.AuditLogs;
 
-public static class GetAuditLogsEndpoint
+internal sealed class Get : IEndpoint
 {
-    public static void MapGetAuditLogsEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/AuditLogs", async (
-            IQueryHandler<GetAuditLogQuery, List<AuditLogResponse>> handler,
+        app.MapGet("AuditLogs", async (
+            IQueryHandler<GetAuditLogsQuery, List<AuditLogResponse>> handler,
             CancellationToken cancellationToken) =>
         {
-            // Explicit type
-            Result<List<AuditLogResponse>> result = await handler.Handle(new GetAuditLogQuery(), cancellationToken);
-            return result.Match(Results.Ok, CustomResults.Problem);
+            var query = new GetAuditLogsQuery();
 
+            Result<List<AuditLogResponse>> result =
+                await handler.Handle(query, cancellationToken);
+
+            return result.Match(Results.Ok, CustomResults.Problem);
         })
         .WithTags(Tags.AuditLogs)
         .RequireAuthorization();

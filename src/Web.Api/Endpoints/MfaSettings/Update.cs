@@ -1,48 +1,36 @@
-﻿using Application.Abstractions.Data;
-using Domain.MfaSettings;
-using Microsoft.EntityFrameworkCore;
+﻿using Application.Abstractions.Messaging;
+using Application.MfaSettings.Update;
 using SharedKernel;
+using Web.Api.Extensions;
+using Web.Api.Infrastructure;
 
 namespace Web.Api.Endpoints.MfaSettings;
 
-public static class Update
+internal sealed class Update : IEndpoint
 {
-    public static void MapUpdateMfaSettingEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/MfaSettings/{id}", async (
+        app.MapPut("MfaSettings/{id:guid}", async (
             Guid id,
             UpdateMfaSettingRequest request,
-            IApplicationDbContext context,
+            ICommandHandler<UpdateMfaSettingCommand> handler,
             CancellationToken cancellationToken) =>
         {
-            MfaSetting? mfa = await context.MfaSettings
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var command = new UpdateMfaSettingCommand(
+                id,
+                request.UserId,
+                request.SecretKey,
+                request.BackupCodes,
+                request.Method,
+                request.Enabled
+            );
 
-            if (mfa is null)
-            {
-                return Results.NotFound(Result.Failure(
-                    Error.NotFound("MfaSetting.NotFound", $"MfaSetting with Id {id} not found.")
-                ));
-            }
+            Result result = await handler.Handle(command, cancellationToken);
 
-            
-            Enum.TryParse<MfaMethod>(request.Method, true, out MfaMethod method);
-
-            mfa.UserId = request.UserId;
-            mfa.SecretKey = request.SecretKey ?? mfa.SecretKey;
-            mfa.BackupCodes = request.BackupCodes ?? mfa.BackupCodes;
-            mfa.Method = method;
-            mfa.Enabled = request.Enabled;
-
-            await context.SaveChangesAsync(cancellationToken);
-
-            return Results.Ok(Result.Success());
+            return result.Match(Results.NoContent, CustomResults.Problem);
         })
-        .WithName("UpdateMfaSetting")
-        .WithTags(Tags.MfaSettings) 
-        .RequireAuthorization()
-        .WithSummary("Update an MFA Setting")
-        .WithDescription("Updates an MFA setting record.");
+        .WithTags(Tags.MfaSettings)
+        .RequireAuthorization();
     }
 }
 

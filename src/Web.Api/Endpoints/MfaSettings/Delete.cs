@@ -1,37 +1,27 @@
-﻿using Application.Abstractions.Data;
-using Domain.MfaSettings;
-using Microsoft.EntityFrameworkCore;
+﻿using Application.Abstractions.Messaging;
+using Application.MfaSettings.Delete;
 using SharedKernel;
+using Web.Api.Extensions;
+using Web.Api.Infrastructure;
 
 namespace Web.Api.Endpoints.MfaSettings;
 
-public static class Delete
+internal sealed class Delete : IEndpoint
 {
-    public static void MapDeleteMfaSettingEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/MfaSettings/{id}", async (
+        app.MapDelete("MfaSettings/{id:guid}", async (
             Guid id,
-            IApplicationDbContext context,
+            ICommandHandler<DeleteMfaSettingCommand> handler,
             CancellationToken cancellationToken) =>
         {
-            MfaSetting? mfa = await context.MfaSettings
-                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var command = new DeleteMfaSettingCommand(id);
 
-            if (mfa is null)
-            {
-                return Results.NotFound(Result.Failure(
-                    Error.NotFound("MfaSetting.NotFound", $"MfaSetting with Id {id} not found.")
-                ));
-            }
+            Result result = await handler.Handle(command, cancellationToken);
 
-            context.MfaSettings.Remove(mfa);
-            await context.SaveChangesAsync(cancellationToken);
-
-            return Results.Ok(Result.Success());
+            return result.Match(Results.NoContent, CustomResults.Problem);
         })
-        .WithTags("Tags.MfaSettings")
-        .RequireAuthorization()
-        .WithSummary("Delete an MFA Setting")
-        .WithDescription("Deletes an MFA Setting by Id");
+        .WithTags(Tags.MfaSettings)
+        .RequireAuthorization();
     }
 }

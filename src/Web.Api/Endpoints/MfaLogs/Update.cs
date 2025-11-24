@@ -5,17 +5,16 @@ using SharedKernel;
 
 namespace Web.Api.Endpoints.MfaLogs;
 
-public static class Update
+internal sealed class Update : IEndpoint
 {
-    public static void MapUpdateMfaLogEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/MfaLogs/{id}", async (
+        app.MapPut("MfaLogs/{id:guid}", async (
             Guid id,
             UpdateMfaLogRequest request,
             IApplicationDbContext context,
             CancellationToken cancellationToken) =>
         {
-            
             MfaLog? mfaLog = await context.MfaLogs
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
@@ -23,7 +22,8 @@ public static class Update
             {
                 return Results.NotFound(Result.Failure(MfaLogErrors.NotFound(id)));
             }
-           
+
+
             if (string.IsNullOrWhiteSpace(request.IpAddress))
             {
                 return Results.BadRequest("IpAddress is required.");
@@ -34,9 +34,10 @@ public static class Update
                 return Results.BadRequest("Device is required.");
             }
 
+
             if (!Enum.IsDefined(typeof(MfaLogStatus), request.Status))
             {
-                return Results.BadRequest($"Invalid MFA status value: {request.Status}");
+                return Results.BadRequest($"Invalid Status value: {request.Status}");
             }
 
             mfaLog.LoginTime = request.LoginTime;
@@ -49,7 +50,6 @@ public static class Update
 
             return Results.Ok(Result.Success());
         })
-        .WithName("UpdateMfaLog")
         .WithTags(Tags.MfaLogs)
         .RequireAuthorization()
         .WithSummary("Update an MFA Log entry")

@@ -5,23 +5,32 @@ using SharedKernel;
 
 namespace Web.Api.Endpoints.AuditLogs;
 
-public static class Update
+internal sealed class Update : IEndpoint
 {
-    public static void MapUpdateAuditLogEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("/AuditLogs/{id}", async (
+        app.MapPut("AuditLogs/{id:guid}", async (
             Guid id,
             UpdateAuditLogRequest request,
             IApplicationDbContext context,
             CancellationToken cancellationToken) =>
         {
-            
             AuditLog? auditLog = await context.AuditLogs
                 .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             if (auditLog is null)
             {
                 return Results.NotFound(Result.Failure(AuditLogErrors.NotFound(id)));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Action))
+            {
+                return Results.BadRequest("Action is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Description))
+            {
+                return Results.BadRequest("Description is required.");
             }
 
             auditLog.Action = request.Action;
@@ -32,8 +41,7 @@ public static class Update
 
             return Results.Ok(Result.Success());
         })
-        .WithName("UpdateAuditLog")
-        .WithTags(Tags.AuditLogs) 
+        .WithTags(Tags.AuditLogs)
         .RequireAuthorization()
         .WithSummary("Update an Audit Log entry")
         .WithDescription("Updates the Action and Description of an Audit Log");

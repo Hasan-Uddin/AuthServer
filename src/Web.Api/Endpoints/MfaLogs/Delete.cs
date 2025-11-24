@@ -5,11 +5,11 @@ using SharedKernel;
 
 namespace Web.Api.Endpoints.MfaLogs;
 
-public static class Delete
+internal sealed class Delete : IEndpoint
 {
-    public static void MapDeleteMfaLogEndpoint(this IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/MfaLogs/{id}", async (
+        app.MapDelete("MfaLogs/{id:guid}", async (
             Guid id,
             IApplicationDbContext context,
             CancellationToken cancellationToken) =>
