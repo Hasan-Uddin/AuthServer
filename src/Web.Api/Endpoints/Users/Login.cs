@@ -12,7 +12,7 @@ internal sealed class Login : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost(ApiRoutes.Users.Login, async (
+        app.MapPost("users/login", async (
             Request request,
             ICommandHandler<LoginUserCommand, string> handler,
             CancellationToken cancellationToken) =>
@@ -20,6 +20,7 @@ internal sealed class Login : IEndpoint
             var command = new LoginUserCommand(request.Email, request.Password);
 
             Result<string> result = await handler.Handle(command, cancellationToken);
+
             return result.Match(Results.Ok, CustomResults.Problem);
         })
         .WithTags(Tags.Users);
