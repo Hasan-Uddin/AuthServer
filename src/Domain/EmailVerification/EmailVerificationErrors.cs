@@ -6,10 +6,10 @@ public static class EmailVerificationErrors
 {
 
     public static Error AlreadyCompleted(Guid EvId) => Error.Problem(
-        "Email verification.AlreadyCompleted",
+        "EmailVerification.AlreadyCompleted",
         $"The Email Verification with Id = '{EvId}' is already completed.");
 
     public static Error NotFound(Guid EvId) => Error.NotFound(
-        "Email verification",
+        "EmailVerification.NotFound",
         $"The Email Verification with the Id = '{EvId}' was not found");
 }

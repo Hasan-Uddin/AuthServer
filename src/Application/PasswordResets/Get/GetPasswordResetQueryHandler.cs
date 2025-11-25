@@ -17,18 +17,18 @@ internal sealed class GetPasswordResetQueryHandler(IApplicationDbContext context
             return Result.Failure<List<PasswordResetResponse>>(UserErrors.Unauthorized());
         }
 
-        List<PasswordResetResponse> passwordResets = await context.PasswordReset
-            .Where(passwordReset => passwordReset.UserId == query.UserId)
-            .Select(passwordReset => new PasswordResetResponse
+        List<PasswordResetResponse> passwordResetResponse = await context.PasswordReset
+            .Where(passwordResetResponse => passwordResetResponse.UserId == query.UserId)
+            .Select(passwordResetResponse => new PasswordResetResponse
             {
-                PrId = passwordReset.PrId,
-                User_Id = passwordReset.UserId,
-                Token = passwordReset.Token,
-                Expires_at = passwordReset.ExpiresAt,
-                Used = passwordReset.Used
+                PrId = passwordResetResponse.PrId,
+                UserId = passwordResetResponse.UserId,
+                Token = passwordResetResponse.Token,
+                ExpiresAt = passwordResetResponse.ExpiresAt,
+                Used = passwordResetResponse.Used
 
             }).ToListAsync(cancellationToken);
 
-        return passwordResets;
+        return passwordResetResponse;
     }
 }

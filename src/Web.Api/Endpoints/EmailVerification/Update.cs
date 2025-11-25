@@ -26,7 +26,7 @@ public sealed class Update : IEndpoint
 
             return result.Match(Results.NoContent, CustomResults.Problem);
         })
-.WithTags(Tags.EmailVerifications)
-.RequireAuthorization();
+        .WithTags(Tags.EmailVerifications)
+        .RequireAuthorization();
     }
 }
