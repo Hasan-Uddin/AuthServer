@@ -12,8 +12,6 @@ public sealed class UpdateBusinessCommandValidator : AbstractValidator<UpdateBus
 
         RuleFor(x => x.IndustryType).NotEmpty().WithMessage("Industry Type is required.");
 
-        RuleFor(x => x.Status)
-            .IsInEnum()
-            .WithMessage("Status must be either Active or Inactive.");
+        RuleFor(x => x.Status).IsInEnum().WithMessage("Status must be either Active or Inactive.");
     }
 }
