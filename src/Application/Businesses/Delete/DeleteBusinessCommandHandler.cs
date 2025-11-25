@@ -21,7 +21,7 @@ internal sealed class DeleteBusinessCommandHandler : ICommandHandler<DeleteBusin
 
         if (business is null)
         {
-            return Result.Failure<Guid>(
+            return Result.Failure(
                 Error.NotFound(
                     "Business.NotFound",
                     $"Business with Id {command.Id} not found."
