@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Users.GetById;
+using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
@@ -10,8 +11,8 @@ internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(ApiRoutes.Users.GetByID, async (
-            Guid userId,
+        app.MapGet("api/users/get", async ( // Remove {id} from route
+            [FromQuery] Guid userId, // Explicit query parameter
             IQueryHandler<GetUserByIdQuery, UserResponse> handler,
             CancellationToken cancellationToken) =>
         {

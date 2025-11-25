@@ -22,8 +22,7 @@ internal sealed class Get : IEndpoint
             Result<UserProfileResponse> result = await handler.Handle(query, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
-        })
-        .HasPermission(Permissions.UsersAccess)
+        })       
         .WithTags(Tags.UserProfile)
         .RequireAuthorization();
     }

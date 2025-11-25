@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.UserLoginHistories.GetByUserId;
+using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
@@ -10,8 +11,8 @@ internal sealed class GetByUserId : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(ApiRoutes.UserLoginHistory.GetByUserID, async (
-            Guid userId,
+        app.MapGet("api/user-login-history/get", async (
+           [FromQuery] Guid userId,
             IQueryHandler<GetUserLoginHistoryByUserIdQuery, List<UserLoginHistoryResponse>> handler,
             CancellationToken cancellationToken) =>
         {

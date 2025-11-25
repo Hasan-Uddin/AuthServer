@@ -72,11 +72,8 @@ internal sealed class UpdateUserCommandHandler(
             userTuple.IsEmailVerified = command.IsEmailVerified.Value;
         }
 
-        if (context.Entry(userTuple).State == EntityState.Modified)
-        {
-            userTuple.UpdatedAt = dateTimeProvider.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
-        }
+        userTuple.UpdatedAt = dateTimeProvider.UtcNow;
+        await context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
