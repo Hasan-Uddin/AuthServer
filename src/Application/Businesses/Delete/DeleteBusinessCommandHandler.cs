@@ -1,11 +1,12 @@
 ﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
+using Domain.Businesses;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.Businesses.Delete;
 
-internal sealed class DeleteBusinessCommandHandler : ICommandHandler<DeleteBusinessCommand, Guid>
+internal sealed class DeleteBusinessCommandHandler : ICommandHandler<DeleteBusinessCommand>
 {
     private readonly IApplicationDbContext _context;
     public DeleteBusinessCommandHandler(IApplicationDbContext context)
@@ -13,17 +14,17 @@ internal sealed class DeleteBusinessCommandHandler : ICommandHandler<DeleteBusin
         _context = context;
     }
 
-    public async Task<Result<Guid>> Handle(DeleteBusinessCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteBusinessCommand command, CancellationToken cancellationToken)
     {
-        Domain.Businesses.Business? business = await _context.Businesses
-            .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
+        Business? business = await _context.Businesses
+            .SingleOrDefaultAsync(b => b.Id == command.Id, cancellationToken);
 
         if (business is null)
         {
             return Result.Failure<Guid>(
                 Error.NotFound(
                     "Business.NotFound",
-                    $"Business with Id {request.Id} not found."
+                    $"Business with Id {command.Id} not found."
                 )
             );
         }
