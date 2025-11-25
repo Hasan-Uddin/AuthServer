@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.Messaging;
+﻿#pragma warning disable CA1054
+using Application.Abstractions.Messaging;
 using Domain.Businesses;
 
 namespace Application.Businesses.Update;
