@@ -35,7 +35,7 @@ public sealed class ApplicationDbContext(
     public DbSet<Applicationapply> Applications { get; set; }
     public DbSet<RolePermission> RolePermissions { get; set; }
     public DbSet<Role> Roles { get; set; }
-    
+
 
 
     public new EntityEntry Entry(object entity) => base.Entry(entity);
@@ -49,7 +49,7 @@ public sealed class ApplicationDbContext(
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-       
+
 
         int result = await base.SaveChangesAsync(cancellationToken);
 

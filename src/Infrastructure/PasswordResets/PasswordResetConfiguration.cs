@@ -9,6 +9,7 @@ public class PasswordResetConfiguration : IEntityTypeConfiguration<PasswordReset
     {
         builder.HasKey(c => c.PrId);
         builder.Property(c => c.UserId).IsRequired();
+        builder.Property(c => c.Token).IsRequired().HasMaxLength(255);
         builder.Property(c => c.ExpiresAt).IsRequired();
         builder.Property(c => c.Used);
     }
