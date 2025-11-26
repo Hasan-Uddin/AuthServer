@@ -3,9 +3,15 @@ using Domain.Businesses;
 
 namespace Application.Businesses.Update;
 
-public sealed record UpdateBusinessCommand(
-    Guid Id,
-    string BusinessName,
-    string IndustryType,
-    Uri LogoUrl,
-    BusinessStatus Status) : ICommand;
+public sealed class UpdateBusinessCommand() : ICommand
+{
+    public Guid Id { get; init; }
+
+    public string BusinessName { get; init; }
+
+    public string IndustryType { get; init; }
+
+    public string LogoUrl { get; init; }
+
+    public BusinessStatus Status { get; init; }
+}

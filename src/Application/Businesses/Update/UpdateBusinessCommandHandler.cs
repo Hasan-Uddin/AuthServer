@@ -21,7 +21,7 @@ internal sealed class UpdateBusinessCommandHandler : ICommandHandler<UpdateBusin
 
         if (business is null)
         {
-            return Result.Failure<Guid>(
+            return Result.Failure(
                 Error.NotFound(
                     "Business.NotFound",
                     $"Business with Id {command.Id} not found."
@@ -31,7 +31,7 @@ internal sealed class UpdateBusinessCommandHandler : ICommandHandler<UpdateBusin
 
         business.BusinessName = command.BusinessName;
         business.IndustryType = command.IndustryType;
-        business.LogoUrl = command.LogoUrl.ToString();
+        business.LogoUrl = command.LogoUrl;
         business.Status = command.Status;
 
         await _context.SaveChangesAsync(cancellationToken);

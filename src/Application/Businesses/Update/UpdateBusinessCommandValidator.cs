@@ -16,13 +16,26 @@ public sealed class UpdateBusinessCommandValidator : AbstractValidator<UpdateBus
             .NotEmpty().WithMessage("Industry Type is required.");
 
         RuleFor(x => x.LogoUrl)
-            .NotNull().WithMessage("Logo Url is required.")
-            .Must(x => x.IsAbsoluteUri)
-            .WithMessage("Logo Url must be a valid url.")
-            .Must(x => x.ToString().Length <= 255)
-            .WithMessage("Url must not exceed 255 char");
+            .NotEmpty().WithMessage("Logo Url is required.")
+            .Must(BeUrl).WithMessage("Logo Url must be a valid url.")
+            .MaximumLength(255).WithMessage("Url must not exceed 255 char");
 
         RuleFor(x => x.Status)
             .IsInEnum().WithMessage("Status must be either Active or Inactive.");
+    }
+
+    private static bool BeUrl(string x)
+    {
+        try
+        {
+            var uri = new Uri(x);
+            // Check that it's an absolute URL
+            return uri.IsAbsoluteUri &&
+                    (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
