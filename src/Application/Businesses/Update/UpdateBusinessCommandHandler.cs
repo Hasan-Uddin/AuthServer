@@ -35,6 +35,6 @@ internal sealed class UpdateBusinessCommandHandler : ICommandHandler<UpdateBusin
         business.Status = command.Status;
 
         await _context.SaveChangesAsync(cancellationToken);
-        return Result.Success(business.Id);
+        return Result.Success();
     }
 }
