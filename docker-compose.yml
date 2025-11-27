@@ -1,48 +1,30 @@
 services:
-  web-api:
-    image: ${DOCKER_REGISTRY-}webapi
-    container_name: web-api
-    build:
-      context: .
-      dockerfile: src/Web.Api/Dockerfile
+  auth-server:
+    image: ghcr.io/dapplesoft-ad/auth-server:latest
+    container_name: auth-server
     ports:
-      - 5000:8080
-      - 5001:8081
+      - "8080:8080"
+      - "8081:8081"
     environment:
-      - ConnectionStrings__Database=Host=postgres;Port=5432;Database=clean-architecture;Username=postgres;Password=1234
+      - ASPNETCORE_ENVIRONMENT=Development # for Development
+      # - ASPNETCORE_ENVIRONMENT=Production # for Production
       - ASPNETCORE_URLS=http://+:8080;http://+:8081
-      - Jwt__Secret=YOUR_SECURE_GENERATED_SECRET
-    depends_on:
-      postgres:
-        condition: service_healthy
+      - ConnectionStrings__Database=Host=localhost;Port=5432;Database=authserver;Username=postgres;Password=pass1234
+    networks:
+      - auth-network
+    restart: unless-stopped
 
-  postgres:
-    image: postgres:18.1-alpine
-    container_name: postgres
-    environment:
-      - POSTGRES_DB=clean-architecture
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
-    volumes:
-      # - ./.containers/db:/var/lib/postgresql/data
-      - postgres_data:/var/lib/postgresql/data
+  auth-server-frontend:
+    image: ghcr.io/dapplesoft-ad/auth-server-frontend:latest
+    container_name: auth-server-frontend
     ports:
-      - 5432:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  seq:
-    image: datalust/seq:2024.3
-    container_name: seq
+      - "40003:4200"
     environment:
-      - ACCEPT_EULA=Y
-    ports:
-      - 8081:5341
+      - NODE_ENV=production
+    networks:
+      - auth-network
+    restart: unless-stopped
 
-
-
-volumes:
-  postgres_data: # Declares the named volume 'postgres_data'
+networks:
+  auth-network:
+    driver: bridge
