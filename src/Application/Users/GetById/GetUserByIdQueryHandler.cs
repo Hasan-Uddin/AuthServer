@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Authentication;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -7,24 +6,24 @@ using SharedKernel;
 
 namespace Application.Users.GetById;
 
-internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context, IUserContext userContext)
+internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context)
     : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
     public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
-        if (query.UserId != userContext.UserId)
-        {
-            return Result.Failure<UserResponse>(UserErrors.Unauthorized());
-        }
-
         UserResponse? user = await context.Users
             .Where(u => u.Id == query.UserId)
             .Select(u => new UserResponse
             {
                 Id = u.Id,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email
+                FullName = u.FullName,
+                Email = u.Email,
+                IsEmailVerified = u.IsEmailVerified,
+                IsMFAEnabled = u.IsMFAEnabled,
+                Phone = u.Phone,
+                Status = u.Status,
+                CreatedAt = u.CreatedAt,
+                UpdatedAt = u.UpdatedAt,
             })
             .SingleOrDefaultAsync(cancellationToken);
 
