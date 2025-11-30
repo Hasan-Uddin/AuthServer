@@ -88,6 +88,10 @@ This project follows **Clean Architecture** with clear separation of concerns ac
    ```powershell
    docker-compose up --build
    ```
+local
+   ```powershell
+   docker compose -f docker-local-compose.yml up -d --build
+   ```
 
 3. **Access the application**
    - API: `http://localhost:5000`

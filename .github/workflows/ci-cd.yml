@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./src/Web.Api/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ghcr.io/dapplesoft-ad/auth-server:latest
 
