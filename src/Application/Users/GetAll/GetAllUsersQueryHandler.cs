@@ -37,6 +37,6 @@ internal sealed class GetAllUsersQueryHandler(
             })
             .ToListAsync(cancellationToken: cancellationToken);
 
-        return users;
+        return Result.Success(users);
     }
 }
