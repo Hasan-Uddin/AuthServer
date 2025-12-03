@@ -6,9 +6,9 @@ namespace Application.Users.Login;
 public sealed record LoginUserResponse(
     string Token,
     string RefreshToken,
-    LogInUserinfo User
+    LogInUserInfo User
 );
 
-public sealed record LogInUserinfo(
+public sealed record LogInUserInfo(
     Guid Id
 );

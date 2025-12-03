@@ -33,7 +33,7 @@ internal sealed class LoginUserCommandHandler(
         var response = new LoginUserResponse(
             Token: tokenProvider.Create(user),
             RefreshToken: "Coming soon",
-            User: new LogInUserinfo(Id: user.Id)
+            User: new LogInUserInfo(Id: user.Id)
         );
 
         return response;
