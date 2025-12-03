@@ -6,9 +6,9 @@ public static class ApiRoutes
     {
         public const string Register = "api/users/register";
         public const string Login = "api/users/login";
-        public const string Update = "api/users/update/{id:guid}";
+        public const string GetAll = "api/users/get-all";
         public const string GetById = "api/users/get/{id:guid}";
-        public const string GetAll = "api/users/get-all/{id:guid}";
+        public const string Update = "api/users/update/{id:guid}";
         public const string Delete = "api/users/delete/{id:guid}";
     }
 

@@ -11,16 +11,11 @@ using SharedKernel;
 namespace Application.Users.GetAll;
 
 internal sealed class GetAllUsersQueryHandler(
-    IApplicationDbContext context,
-    IUserContext userContext) : IQueryHandler<GetAllUsersQuery, List<GetAllUsersQueryResponse>>
+    IApplicationDbContext context) : IQueryHandler<GetAllUsersQuery, List<GetAllUsersQueryResponse>>
 {
     public async Task<Result<List<GetAllUsersQueryResponse>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
     {
-        if (query.Id != userContext.UserId)
-        {
-            return Result.Failure<List<GetAllUsersQueryResponse>>(UserErrors.Unauthorized());
-        }
-
+        // Admin role condition will be applied
         List<GetAllUsersQueryResponse> users = await context.Users
             .AsNoTracking()
             .Select(user => new GetAllUsersQueryResponse

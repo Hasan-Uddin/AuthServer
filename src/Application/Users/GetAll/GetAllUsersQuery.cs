@@ -5,4 +5,4 @@ using Application.Abstractions.Messaging;
 
 namespace Application.Users.GetAll;
 
-public sealed record GetAllUsersQuery(Guid Id) : IQuery<List<GetAllUsersQueryResponse>>;
+public sealed record GetAllUsersQuery() : IQuery<List<GetAllUsersQueryResponse>>;
