@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
 
 namespace Application.Users.GetAll;
 
