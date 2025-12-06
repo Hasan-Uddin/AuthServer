@@ -7,10 +7,12 @@ using Domain.Customers;
 using Domain.EmailVerification;
 using Domain.MfaLogs;
 using Domain.MfaSettings;
+using Domain.Otps;
 using Domain.PasswordResets;
 using Domain.Permissions;
 using Domain.RolePermissions;
 using Domain.Roles;
+using Domain.SmtpConfigs;
 using Domain.Todos;
 using Domain.Token;
 using Domain.UserLoginHistories;
@@ -58,6 +60,8 @@ public sealed class ApplicationDbContext(
     public DbSet<AuditLog> AuditLogs { get; set; }
     public DbSet<MfaLog> MfaLogs { get; set; }
     public DbSet<MfaSetting> MfaSettings { get; set; }
+    public DbSet<Otp> Otp { get; set; }
+    public DbSet<SmtpConfig> SmtpConfig { get; set; }
 
     public new EntityEntry Entry(object entity) => base.Entry(entity);
 
