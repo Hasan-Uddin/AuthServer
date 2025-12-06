@@ -7,11 +7,11 @@ using SharedKernel;
 
 namespace Application.SmtpConfigs.Delete;
 
-internal sealed class DeleteTokenCommandHandler : ICommandHandler<DeleteSmtpConfigCommand>
+internal sealed class DeleteSmtpConfigCommandHandler : ICommandHandler<DeleteSmtpConfigCommand>
 {
 
     private readonly IApplicationDbContext _context;
-    public DeleteTokenCommandHandler(IApplicationDbContext context)
+    public DeleteSmtpConfigCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
