@@ -2,6 +2,7 @@
 using Domain.AuditLogs;
 using Domain.Businesses;
 using Domain.BusinessMembers;
+using Domain.Countries;
 using Domain.Customers;
 using Domain.EmailVerification;
 using Domain.MfaLogs;
@@ -43,6 +44,7 @@ public interface IApplicationDbContext
     DbSet<MfaSetting> MfaSettings { get; }
     DbSet<Otp> Otp { get; }
     DbSet<SmtpConfig> SmtpConfig { get; }
+    DbSet<Country> Countries { get; }
     EntityEntry Entry(object entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
