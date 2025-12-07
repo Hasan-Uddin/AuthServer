@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Countries.Get;
 
 namespace Application.Countries.Get;
 
